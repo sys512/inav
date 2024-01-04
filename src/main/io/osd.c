@@ -4306,7 +4306,7 @@ static void osdUpdateStats(void)
         if (stats.max_sats < gpsSol.numSat)
             stats.max_sats = gpsSol.numSat;
     }
-
+#if defined(USE_ESC_SENSOR)
     if (STATE(ESC_SENSOR_ENABLED)) {
         escSensorData_t * escSensor = escSensorGetData();
         bool escTemperatureValid = escSensor && escSensor->dataAge <= ESC_DATA_MAX_AGE;
@@ -4319,6 +4319,7 @@ static void osdUpdateStats(void)
                 stats.max_esc_temp = escSensor->temperature;
         }
     }
+#endif
 
     value = getBatteryVoltage();
     if (stats.min_voltage > value)
